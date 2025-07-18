@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import { validateCredentials } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 export default function Login() {
   const [newUser, setNewUser] = useState(false);
@@ -33,8 +38,34 @@ export default function Login() {
     setValidations(validation);
     setTouched({ email: true, password: true });
 
-    if (validation.email && validation.password) {
-      alert("Login successful!");
+    if (newUser && validation.email && validation.password) {
+      createUserWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode + errorMessage);
+          // ..
+        });
+    }
+    if (!newUser && validation.email && validation.password) {
+      signInWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode + errorMessage);
+        });
     }
   };
 
