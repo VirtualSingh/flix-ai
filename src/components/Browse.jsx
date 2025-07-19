@@ -1,3 +1,5 @@
+import Header from "./Header";
+
 export default function Browse() {
-  return <p>browser page</p>;
+  return <Header />;
 }

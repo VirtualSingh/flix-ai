@@ -4,12 +4,20 @@ import { validateCredentials } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const [newUser, setNewUser] = useState(false);
-  const [values, setValues] = useState({ email: "", password: "" });
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
+    displayName: "",
+  });
   const [validations, setValidations] = useState({
     email: true,
     password: true,
@@ -43,24 +51,36 @@ export default function Login() {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
-          // ...
+
+          updateProfile(auth.currentUser, {
+            displayName: values.displayName,
+            photoURL: `https://api.dicebear.com/9.x/big-smile/svg?seed=${user.uid}&scale=100&flip=true&backgroundType=gradientLinear
+`,
+          })
+            .then(() => {
+              const { uid, displayName, email, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  displayName: displayName,
+                  email: email,
+                  photoURL: photoURL,
+                })
+              );
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode + errorMessage);
-          // ..
         });
     }
     if (!newUser && validation.email && validation.password) {
       signInWithEmailAndPassword(auth, values.email, values.password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          console.log(user);
-          // ...
-        })
+        .then(() => {})
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
@@ -70,7 +90,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    setValues({ email: "", password: "" });
+    setValues({ email: "", password: "", displayName: "" });
     setValidations({
       email: true,
       password: true,
@@ -91,6 +111,9 @@ export default function Login() {
 
         {newUser && (
           <input
+            name="displayName"
+            value={values.displayName}
+            onChange={handleChange}
             type="text"
             placeholder="Username"
             className="p-2 m-2 bg-gray-700 rounded-md w-full"
