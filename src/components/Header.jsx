@@ -13,7 +13,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(
           addUser({
@@ -23,13 +23,14 @@ export default function Header() {
             photoURL: user?.photoURL,
           })
         );
-        console.log(user);
+        // console.log(user);
         navigate("/browse");
       } else {
         dispatch(removeUser());
         navigate("/");
       }
     });
+    return () => unsubscribe();
   }, []);
 
   const handleSignOut = function () {
@@ -42,7 +43,7 @@ export default function Header() {
   };
 
   return (
-    <header className="header flex justify-between items-center h-14  px-4 bg-gradient-to-r from-black  via-transparent via-50% to-black to-90% ">
+    <header className="fixed z-10 top-0  w-screen flex justify-between items-center h-14  px-4 bg-gradient-to-b from-black  ">
       <span className="logo-wrapper inline-block h-full">
         <img src={logo} alt="logo" className="h-full" />
       </span>
