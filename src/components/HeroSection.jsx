@@ -9,9 +9,9 @@ export default function HeroSection() {
   const { title, overview, id } = movies[0];
 
   return (
-    <>
+    <div className="relative aspect-video">
       <VideoInfo movieTitle={title} movieDescription={overview} />
       <VideoBackground movieId={id} />
-    </>
+    </div>
   );
 }
