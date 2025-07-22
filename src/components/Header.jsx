@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { switchToAi } from "../utils/aiRecommendationSlice";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -42,6 +43,10 @@ export default function Header() {
       });
   };
 
+  const handleSwitchToAi = () => {
+    dispatch(switchToAi());
+  };
+
   return (
     <header className="fixed z-30 top-0  w-full flex justify-between items-center h-14  px-4 bg-gradient-to-b from-black  ">
       <span className="logo-wrapper inline-block h-full">
@@ -54,8 +59,15 @@ export default function Header() {
             alt="user profile image"
             className="rounded-1/2 h-8 w-8 ml-auto mr-2"
           />
+
           <button
-            className="bg-gray-700 border-none rounded-lg p-2 text-white hover:bg-gray-800 cursor-pointer text-sm"
+            className=" bg-black font-bold  border-none rounded-lg px-4 py-2 mr-4 text-white hover:bg-gray-800 cursor-pointer text-sm"
+            onClick={handleSwitchToAi}
+          >
+            Ask AI
+          </button>
+          <button
+            className="bg-red-500 font-bold border-none rounded-lg p-2 text-white hover:bg-gray-800 cursor-pointer text-sm"
             onClick={handleSignOut}
           >
             Sign Out
