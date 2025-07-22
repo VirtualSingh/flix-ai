@@ -1,15 +1,15 @@
-import { API_OPTIONS, TMDB_API_URL } from "../utils/constants";
+import { API_OPTIONS } from "../utils/constants";
 import { useDispatch } from "react-redux";
-import { addNowPlayingMovies } from "../utils/movieSlice";
 import { useEffect } from "react";
+import { getApiURL } from "../utils/constants";
 
-export default function useFetchMovies() {
+export default function useFetchMoviesByCategory(category, dispatchMethod) {
   const dispatch = useDispatch();
   async function fetchMovies() {
     try {
-      const response = await fetch(TMDB_API_URL, API_OPTIONS);
+      const response = await fetch(getApiURL(category), API_OPTIONS);
       const json = await response.json();
-      dispatch(addNowPlayingMovies(json.results));
+      dispatch(dispatchMethod(json.results));
     } catch (error) {
       console.log(error);
     }
