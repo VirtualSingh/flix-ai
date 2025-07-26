@@ -1,12 +1,16 @@
 import SearchBar from "./SearchBar";
 import RecommendationsPage from "./RecommendationsPage";
+// import { useSelector } from "react-redux";
+// import MovieList from "./MovieList";
 export default function AiRecommendationsSection() {
+  // const { aiRecommends, movieNames } = useSelector(
+  //   (store) => store?.aiRecommendations
+  // );
+  // if (!movieNames) return null;
   return (
-    <div className="bg-[url('/backgroundImage1.jpg')] bg-cover bg-center h-screen flex items-center justify-center ">
-      <div className="w-2/3 rounded-2xl">
-        <SearchBar />
-        <RecommendationsPage />
-      </div>
+    <div className="bg-[url('/backgroundImage1.jpg')] bg-top min-h-screen bg-repeat bg-contain w-full ">
+      <SearchBar />
+      <RecommendationsPage />
     </div>
   );
 }
