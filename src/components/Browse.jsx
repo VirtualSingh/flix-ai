@@ -10,15 +10,33 @@ import {
 import useFetchMoviesByCategory from "../hooks/useFetchMoviesByCategory";
 import { useSelector } from "react-redux";
 import AiRecommendationsSection from "./AiRecommendationsSection";
+import Footer from "./Footer";
 
 export default function Browse() {
-  useFetchMoviesByCategory("now_playing", addNowPlayingMovies);
-  useFetchMoviesByCategory("popular", addPopularMovies);
-  useFetchMoviesByCategory("upcoming", addUpcomingMovies);
-  useFetchMoviesByCategory("top_rated", addTopRatedMovies);
-  const toggleAi = useSelector((store) => store?.aiRecommendations?.toggleAi);
+  useFetchMoviesByCategory(
+    "now_playing",
+    addNowPlayingMovies,
+    (state) => state.movies.nowPlayingMovies
+  );
+  useFetchMoviesByCategory(
+    "popular",
+    addPopularMovies,
+    (state) => state?.movies.popularMovies
+  );
+  useFetchMoviesByCategory(
+    "upcoming",
+    addUpcomingMovies,
+    (state) => state.movies.upcomingMovies
+  );
+  useFetchMoviesByCategory(
+    "top_rated",
+    addTopRatedMovies,
+    (state) => state.movies.topRatedMovies
+  );
+  let toggleAi = useSelector((store) => store?.aiRecommendations?.toggleAi);
+  // toggleAi = true;
   return (
-    <div>
+    <div className="bg-black">
       <Header />
       {toggleAi ? (
         <AiRecommendationsSection />
@@ -28,6 +46,7 @@ export default function Browse() {
           <MoviesSection />
         </>
       )}
+      <Footer />
     </div>
   );
 }
