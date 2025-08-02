@@ -98,14 +98,15 @@ export default function Login() {
     setTouched({ email: false, password: false });
   }, [newUser]);
   return (
-    <div className="bg-[url('/backgroundImage1.jpg')] bg-cover bg-center h-screen">
+    <div className="bg-[url('/backgroundImage1.jpg')] bg-cover bg-center min-h-screen relative">
       <Header />
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 flex
-      flex-col w-3/12  items-center p-6 text-white bg-[rgba(0,0,0,0.8)]  rounded-md "
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col
+    w-11/12 sm:w-9/12 md:w-6/12 lg:w-4/12 xl:w-3/12
+    items-center p-4 sm:p-6 text-white bg-[rgba(0,0,0,0.8)] rounded-md"
       >
-        <h1 className="text-3xl font-bold py-4 self-start">
+        <h1 className="text-2xl sm:text-3xl font-bold py-4 self-start">
           {newUser ? "Sign Up" : "Sign In"}
         </h1>
 
@@ -116,7 +117,7 @@ export default function Login() {
             onChange={handleChange}
             type="text"
             placeholder="Username"
-            className="p-2 m-2 bg-gray-700 rounded-md w-full"
+            className="p-2 m-2 bg-gray-700 rounded-md w-full text-sm sm:text-base"
           />
         )}
 
@@ -124,40 +125,42 @@ export default function Login() {
           name="email"
           value={values.email}
           onChange={handleChange}
-          //   onBlur={handleBlur}
           type="text"
           placeholder="Email"
-          className="p-2 m-2 bg-gray-700 rounded-md w-full"
+          className="p-2 m-2 bg-gray-700 rounded-md w-full text-sm sm:text-base"
         />
         {!validations.email && touched.email && (
-          <small className="text-red-500 self-start">Enter a valid email</small>
+          <small className="text-red-500 self-start text-xs sm:text-sm">
+            Enter a valid email
+          </small>
         )}
 
         <input
           name="password"
           value={values.password}
           onChange={handleChange}
-          //   onBlur={handleBlur}
           type="password"
           placeholder="Password"
-          className="p-2 m-2 bg-gray-700 rounded-md w-full"
+          className="p-2 m-2 bg-gray-700 rounded-md w-full text-sm sm:text-base"
         />
         {!validations.password && touched.password && (
-          <small className="text-red-500 self-start">
+          <small className="text-red-500 self-start text-xs sm:text-sm">
             Password must meet complexity rules
           </small>
         )}
+
         <button
-          className="px-4 py-2 m-4 mt-8 bg-red-500 rounded-md w-full"
+          className="px-4 py-2 m-4 mt-6 bg-red-500 rounded-md w-full text-sm sm:text-base"
           onClick={handleFormSubmission}
         >
-          {newUser ? "Sign Up" : "Sign In"}
+          <span>{newUser ? "Sign Up" : "Sign In"}</span>
         </button>
+
         <p
-          className="m-2 text-sm cursor-pointer hover:underline hover:underline-offset-2"
+          className="m-2 text-xs sm:text-sm cursor-pointer hover:underline hover:underline-offset-2 text-center"
           onClick={() => setNewUser((prev) => !prev)}
         >
-          {newUser ? "Already Registered! Sign In" : "New to Flix! Sign Up"}
+          {newUser ? "Already Registered? Sign In" : "New to Flix? Sign Up"}
         </p>
       </form>
     </div>
