@@ -12,6 +12,7 @@ export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const { toggleAi } = useSelector((store) => store?.aiRecommendations);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -64,7 +65,7 @@ export default function Header() {
             className=" bg-black font-bold  border-none rounded-lg px-4 py-2 mr-4 text-white hover:bg-gray-800 cursor-pointer text-sm"
             onClick={handleSwitchToAi}
           >
-            Ask AI
+            {toggleAi ? "Home" : "Ask AI"}
           </button>
           <button
             className="bg-black font-bold border-none rounded-lg px-4 py-2 text-white hover:bg-gray-800 cursor-pointer text-sm"

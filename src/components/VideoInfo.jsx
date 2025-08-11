@@ -1,6 +1,6 @@
 export default function VideoInfo({ movieTitle, movieDescription }) {
   return (
-    <div className="absolute top-0 w-full h-full  bg-gradient-to-r from-black text-white z-20">
+    <div className="absolute top-0 w-full h-full  bg-gradient-to-r from-black text-white z-20 sm:hidden">
       <div className="content-wrapper w-1/3 px-6 absolute bottom-1/4 left-8">
         <h1 className="text-5xl font-bold ">{movieTitle}</h1>
         <p className=" text-lg mt-6 max-h-40 line-clamp-4">

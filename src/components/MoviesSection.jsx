@@ -7,7 +7,7 @@ export default function MoviesSection() {
   return (
     movies && (
       <div className="bg-black">
-        <div className="-mt-30 relative z-30 px-4">
+        <div className="-mt-20 sm:-mt-24 md:-mt-28 lg:-mt-32 relative z-30 px-2 sm:px-4">
           {movies?.nowPlayingMovies && (
             <MovieList title="Now Playing" movies={movies.nowPlayingMovies} />
           )}

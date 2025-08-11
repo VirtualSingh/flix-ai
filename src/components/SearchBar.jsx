@@ -54,27 +54,28 @@ export default function SearchBar({ setShowLoader }) {
   //   ------------
   return (
     <>
-      <div className="flex justify-center pt-16 pb-12 px-4">
+      <div className="flex justify-center pt-12 sm:pt-16 pb-10 sm:pb-12 px-2 sm:px-4">
         <div className="w-full max-w-4xl">
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="bg-[rgba(0,0,0,0.8)] grid grid-cols-12 text-white rounded-lg "
+            className="bg-[rgba(0,0,0,0.8)] grid grid-cols-1 sm:grid-cols-12 gap-4 text-white rounded-lg p-4"
           >
             <input
               ref={inputRef}
               type="text"
-              placeholder="What would you like to watch? "
-              className="col-span-9 bg-gray-800 rounded-lg m-4 p-4"
+              placeholder="What would you like to watch?"
+              className="bg-gray-800 rounded-lg p-3 sm:p-4 col-span-1 sm:col-span-9 w-full"
             />
             <button
-              className="py-2 px-4 text-xl m-4 font-semibold text-white col-span-3 bg-red-700 rounded-lg cursor-pointer"
               onClick={handleSearch}
+              className="py-3 px-4 text-base sm:text-xl font-semibold text-white col-span-1 sm:col-span-3 bg-red-700 rounded-lg w-full"
             >
               Search
             </button>
           </form>
         </div>
       </div>
+
       {noMovieFound && <NoMoviesFound />}
     </>
   );

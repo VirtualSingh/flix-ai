@@ -9,7 +9,7 @@ export default function VideoBackground({ movieId }) {
     movieTrailer && (
       <div className="absolute inset-0 overflow-hidden z-0">
         <iframe
-          className="aspect-video w-full h-full absolute top-0 left-0 pointer-events-none object-cover scale-[1.3]"
+          className="w-full h-full absolute top-0 left-0 pointer-events-none object-cover scale-[1.3] sm:scale-[1.2] md:scale-[1.1] lg:scale-100"
           src={
             "https://www.youtube.com/embed/" +
             movieTrailer?.key +
@@ -17,7 +17,7 @@ export default function VideoBackground({ movieId }) {
             movieTrailer?.key +
             "&modestbranding=1&showinfo=0&rel=0"
           }
-          allow="autoplay; "
+          allow="autoplay"
           referrerPolicy="strict-origin-when-cross-origin"
         ></iframe>
       </div>
